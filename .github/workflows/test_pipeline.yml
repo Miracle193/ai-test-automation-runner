@@ -1,0 +1,38 @@
+# Name of the workflow (what you see in GitHub Actions CI)
+name: AI Test Pipeline
+
+# Defines when the pipeline should run (on pushes and pull requests)
+on:
+  push:
+  pull_request:
+
+# Defines a job named test
+jobs:
+  test:
+    # Runs the job on a Linux machine
+    runs-on: ubuntu-latest
+
+    # start the list of actions the pipeline will perform
+    steps:
+      # Download the repo into the runner
+      # Makes the code available to the pipeline
+      - uses: actions/checkout@v3
+
+      # Label for next step
+      - name: Setup Python
+        # Install Python in the pipeline environment with v3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.12
+
+      # Label for next step
+      - name: Install dependencies
+        # Install all Python dependencies
+        run: |
+          pip install -r requirements.txt
+          playwright install
+
+      # Label for next step
+      - name: Run tests
+        # Run the test suite
+        run: pytest

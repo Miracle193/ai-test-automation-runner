@@ -1,3 +1,6 @@
 .env
 venv/
 .vscode/
+generator/__pycache__/
+runner/__pycache__/
+tests/__pycache__/
